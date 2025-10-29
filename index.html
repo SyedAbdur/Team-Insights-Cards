@@ -339,6 +339,73 @@
         .total-row:hover {
             background: #e5e7eb !important;
         }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .chart-wrapper {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .pie-chart-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .legend-label {
+            flex: 1;
+            color: #333;
+        }
+        
+        .legend-value {
+            font-weight: 600;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -397,7 +464,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><span class="state-badge completed">Fixed</span></td>
+                            <td><span class="state-badge completed">Completed</span></td>
                             <td>24</td>
                             <td>
                                 <div class="percentage-cell">
@@ -409,7 +476,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="state-badge in-progress">Won't Fix</span></td>
+                            <td><span class="state-badge in-progress">In Progress</span></td>
                             <td>18</td>
                             <td>
                                 <div class="percentage-cell">
@@ -421,7 +488,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="state-badge blocked">Can't Reproduce</span></td>
+                            <td><span class="state-badge blocked">Blocked</span></td>
                             <td>3</td>
                             <td>
                                 <div class="percentage-cell">
@@ -433,7 +500,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="state-badge pending">Open</span></td>
+                            <td><span class="state-badge pending">Pending</span></td>
                             <td>5</td>
                             <td>
                                 <div class="percentage-cell">
@@ -459,33 +526,108 @@
                     <span class="icon">🔥</span>
                     Current Focus Areas
                 </div>
-                <div class="list-item">
-                    <div class="status-dot blue"></div>
-                    <div class="list-content">
-                        <div class="list-title">AI-Powered Search Feature</div>
-                        <div class="list-subtitle">Backend development in progress</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 65%;"></div>
+                <div class="charts-container">
+                    <!-- RCA Pie Chart -->
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">RCA (Root Cause Analysis)</h3>
+                        <div class="pie-chart-container">
+                            <svg class="pie-chart" viewBox="0 0 200 200">
+                                <!-- Code Issues: 35% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#667eea" stroke-width="60"
+                                    stroke-dasharray="175.93 502.65" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                                <!-- Infrastructure: 25% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#764ba2" stroke-width="60"
+                                    stroke-dasharray="157.08 502.65" stroke-dashoffset="-175.93" transform="rotate(-90 100 100)"/>
+                                <!-- Third Party: 20% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#f59e0b" stroke-width="60"
+                                    stroke-dasharray="125.66 502.65" stroke-dashoffset="-333.01" transform="rotate(-90 100 100)"/>
+                                <!-- Configuration: 12% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="60"
+                                    stroke-dasharray="75.40 502.65" stroke-dashoffset="-458.67" transform="rotate(-90 100 100)"/>
+                                <!-- Human Error: 8% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#ef4444" stroke-width="60"
+                                    stroke-dasharray="50.27 502.65" stroke-dashoffset="-534.07" transform="rotate(-90 100 100)"/>
+                                
+                                <!-- Center circle -->
+                                <circle cx="100" cy="100" r="50" fill="white"/>
+                                <text x="100" y="95" text-anchor="middle" font-size="16" font-weight="700" fill="#333">Total</text>
+                                <text x="100" y="110" text-anchor="middle" font-size="20" font-weight="700" fill="#667eea">45</text>
+                            </svg>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #667eea;"></span>
+                                <span class="legend-label">Issues with current logic</span>
+                                <span class="legend-value">16 (35%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #764ba2;"></span>
+                                <span class="legend-label">Release issues</span>
+                                <span class="legend-value">11 (25%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #f59e0b;"></span>
+                                <span class="legend-label">Data Handling & Processing issues</span>
+                                <span class="legend-value">9 (20%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #10b981;"></span>
+                                <span class="legend-label">Insufficient Testing</span>
+                                <span class="legend-value">5 (12%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #ef4444;"></span>
+                                <span class="legend-label">External Dependency</span>
+                                <span class="legend-value">4 (8%)</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="list-item">
-                    <div class="status-dot yellow"></div>
-                    <div class="list-content">
-                        <div class="list-title">Performance Optimization Initiative</div>
-                        <div class="list-subtitle">Targeting 30% load time reduction</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 40%;"></div>
+                    
+                    <!-- Tech Ops Evaluation Pie Chart -->
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">Tech. Ops Evaluation</h3>
+                        <div class="pie-chart-container">
+                            <svg class="pie-chart" viewBox="0 0 200 200">
+                                <!-- Excellent: 40% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="60"
+                                    stroke-dasharray="201.06 502.65" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                                <!-- Good: 35% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="60"
+                                    stroke-dasharray="175.93 502.65" stroke-dashoffset="-201.06" transform="rotate(-90 100 100)"/>
+                                <!-- Fair: 15% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#f59e0b" stroke-width="60"
+                                    stroke-dasharray="94.25 502.65" stroke-dashoffset="-376.99" transform="rotate(-90 100 100)"/>
+                                <!-- Poor: 10% -->
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#ef4444" stroke-width="60"
+                                    stroke-dasharray="50.27 502.65" stroke-dashoffset="-471.24" transform="rotate(-90 100 100)"/>
+                                
+                                <!-- Center circle -->
+                                <circle cx="100" cy="100" r="50" fill="white"/>
+                                <text x="100" y="95" text-anchor="middle" font-size="16" font-weight="700" fill="#333">Total</text>
+                                <text x="100" y="110" text-anchor="middle" font-size="20" font-weight="700" fill="#3b82f6">80</text>
+                            </svg>
                         </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="status-dot green"></div>
-                    <div class="list-content">
-                        <div class="list-title">API v2 Documentation Update</div>
-                        <div class="list-subtitle">Nearly complete, final review pending</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%;"></div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #10b981;"></span>
+                                <span class="legend-label">Reporter Issue</span>
+                                <span class="legend-value">32 (40%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #3b82f6;"></span>
+                                <span class="legend-label">Needed Debugging</span>
+                                <span class="legend-value">28 (35%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #f59e0b;"></span>
+                                <span class="legend-label">Intermittent issues</span>
+                                <span class="legend-value">12 (15%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #ef4444;"></span>
+                                <span class="legend-label">Salla Improvement</span>
+                                <span class="legend-value">8 (10%)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
