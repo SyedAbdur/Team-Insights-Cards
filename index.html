@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Insights Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .header .period {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .header .team-lead {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .icon {
+            font-size: 20px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+        }
+        
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .metric-trend {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .metric-trend.down {
+            color: #ef4444;
+        }
+        
+        .metric-trend.stable {
+            color: #f59e0b;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .list-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        
+        .status-dot.green {
+            background: #10b981;
+        }
+        
+        .status-dot.yellow {
+            background: #f59e0b;
+        }
+        
+        .status-dot.red {
+            background: #ef4444;
+        }
+        
+        .status-dot.blue {
+            background: #3b82f6;
+        }
+        
+        .list-content {
+            flex: 1;
+        }
+        
+        .list-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .list-subtitle {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .spotlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .spotlight-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .spotlight-text {
+            font-size: 14px;
+            color: #78350f;
+            line-height: 1.6;
+        }
+        
+        .spotlight-name {
+            font-weight: 700;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="status-badge">✓ On Track</div>
+            <h1>Product Development Team</h1>
+            <div class="period">October 15-28, 2025</div>
+            <div class="team-lead">Team Lead: Sarah Mitchell</div>
+        </div>
+        
+        <div class="content">
+            <!-- Key Metrics -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📊</span>
+                    Key Metrics & KPIs
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Sprint Velocity</div>
+                        <div class="metric-value">48</div>
+                        <div class="metric-trend">↑ 12% vs last sprint</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Bug Resolution</div>
+                        <div class="metric-value">92%</div>
+                        <div class="metric-trend">↑ 5% improvement</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Feature Delivery</div>
+                        <div class="metric-value">5/6</div>
+                        <div class="metric-trend stable">→ 83% on schedule</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Team Capacity</div>
+                        <div class="metric-value">95%</div>
+                        <div class="metric-trend down">↓ 5% (1 member OOO)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Major Accomplishments -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎯</span>
+                    Major Accomplishments
+                </div>
+                <div class="list-item">
+                    <div class="status-dot green"></div>
+                    <div class="list-content">
+                        <div class="list-title">Mobile App v3.2 Released to Production</div>
+                        <div class="list-subtitle">Deployed successfully with zero critical bugs reported</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot green"></div>
+                    <div class="list-content">
+                        <div class="list-title">Payment Gateway Integration Completed</div>
+                        <div class="list-subtitle">Stripe integration tested and approved by security team</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot green"></div>
+                    <div class="list-content">
+                        <div class="list-title">User Dashboard Redesign Approved</div>
+                        <div class="list-subtitle">Positive feedback from 89% of beta testers</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Focus Areas -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🔥</span>
+                    Current Focus Areas
+                </div>
+                <div class="list-item">
+                    <div class="status-dot blue"></div>
+                    <div class="list-content">
+                        <div class="list-title">AI-Powered Search Feature</div>
+                        <div class="list-subtitle">Backend development in progress</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot yellow"></div>
+                    <div class="list-content">
+                        <div class="list-title">Performance Optimization Initiative</div>
+                        <div class="list-subtitle">Targeting 30% load time reduction</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot green"></div>
+                    <div class="list-content">
+                        <div class="list-title">API v2 Documentation Update</div>
+                        <div class="list-subtitle">Nearly complete, final review pending</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Challenges & Blockers -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">⚠️</span>
+                    Challenges & Blockers
+                </div>
+                <div class="list-item">
+                    <div class="status-dot red"></div>
+                    <div class="list-content">
+                        <div class="list-title">Third-party API Rate Limiting Issues</div>
+                        <div class="list-subtitle">Awaiting vendor response on enterprise plan upgrade</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot yellow"></div>
+                    <div class="list-content">
+                        <div class="list-title">Design System Dependencies</div>
+                        <div class="list-subtitle">Waiting on Design Team for updated component library</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Milestones -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📅</span>
+                    Upcoming Milestones
+                </div>
+                <div class="list-item">
+                    <div class="status-dot blue"></div>
+                    <div class="list-content">
+                        <div class="list-title">Q4 Feature Freeze - Nov 1</div>
+                        <div class="list-subtitle">All features must be code-complete</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot blue"></div>
+                    <div class="list-content">
+                        <div class="list-title">Stakeholder Demo - Nov 5</div>
+                        <div class="list-subtitle">Presenting AI search and dashboard redesign</div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="status-dot blue"></div>
+                    <div class="list-content">
+                        <div class="list-title">Security Audit - Nov 8</div>
+                        <div class="list-subtitle">External audit of new payment system</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Team Spotlight -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">⭐</span>
+                    Team Spotlight
+                </div>
+                <div class="spotlight">
+                    <div class="spotlight-icon">🏆</div>
+                    <div class="spotlight-text">
+                        Shoutout to <span class="spotlight-name">Alex Chen</span> for leading the mobile release and mentoring two junior developers through their first production deployment. The release went smoothly thanks to Alex's thorough documentation and testing preparation!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
