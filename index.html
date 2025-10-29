@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations Score Card</title>
+    <title>Team Insights Card</title>
     <style>
         * {
             margin: 0;
@@ -225,15 +225,129 @@
             font-weight: 700;
             color: #92400e;
         }
+        
+        .state-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .state-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .state-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .state-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .state-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .state-table tbody tr:hover {
+            background: #f1f3f5;
+        }
+        
+        .state-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .state-badge.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .state-badge.in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .state-badge.blocked {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .state-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .percentage-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .percentage-text {
+            font-weight: 600;
+            color: #333;
+            min-width: 45px;
+        }
+        
+        .percentage-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .percentage-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .percentage-fill.completed {
+            background: #10b981;
+        }
+        
+        .percentage-fill.in-progress {
+            background: #3b82f6;
+        }
+        
+        .percentage-fill.blocked {
+            background: #ef4444;
+        }
+        
+        .percentage-fill.pending {
+            background: #f59e0b;
+        }
+        
+        .total-row {
+            background: #e5e7eb;
+            font-weight: 600;
+        }
+        
+        .total-row:hover {
+            background: #e5e7eb !important;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="header">
             <div class="status-badge">✓ On Track</div>
-            <h1>Catalog Operations Card</h1>
-            <div class="period">October 19-25, 2025</div>
-            <div class="team-lead">EM: Husam Alsairi</div>
+            <h1>Product Development Team</h1>
+            <div class="period">October 15-28, 2025</div>
+            <div class="team-lead">Team Lead: Sarah Mitchell</div>
         </div>
         
         <div class="content">
@@ -245,55 +359,98 @@
                 </div>
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <div class="metric-label">Total Tickets</div>
-                        <div class="metric-value">19</div>
-                        <div class="metric-trend">↓ 5% vs last week</div>
+                        <div class="metric-label">Sprint Velocity</div>
+                        <div class="metric-value">48</div>
+                        <div class="metric-trend">↑ 12% vs last sprint</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Bug Resolution</div>
-                        <div class="metric-value">99%</div>
+                        <div class="metric-value">92%</div>
                         <div class="metric-trend">↑ 5% improvement</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">WCD</div>
-                        <div class="metric-value">6</div>
-                        <div class="metric-trend stable">↓ 20% vs last week</div>
+                        <div class="metric-label">Feature Delivery</div>
+                        <div class="metric-value">5/6</div>
+                        <div class="metric-trend stable">→ 83% on schedule</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Premium Support</div>
-                        <div class="metric-value">1</div>
-                        <div class="metric-trend down">↓ 5% vs last week</div>
+                        <div class="metric-label">Team Capacity</div>
+                        <div class="metric-value">95%</div>
+                        <div class="metric-trend down">↓ 5% (1 member OOO)</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Major Accomplishments -->
+            <!-- State Analysis -->
             <div class="section">
                 <div class="section-title">
-                    <span class="icon">🎯</span>
-                    Major Accomplishments
+                    <span class="icon">📋</span>
+                    State Analysis
                 </div>
-                <div class="list-item">
-                    <div class="status-dot green"></div>
-                    <div class="list-content">
-                        <div class="list-title">Mobile App v3.2 Released to Production</div>
-                        <div class="list-subtitle">Deployed successfully with zero critical bugs reported</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="status-dot green"></div>
-                    <div class="list-content">
-                        <div class="list-title">Payment Gateway Integration Completed</div>
-                        <div class="list-subtitle">Stripe integration tested and approved by security team</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="status-dot green"></div>
-                    <div class="list-content">
-                        <div class="list-title">User Dashboard Redesign Approved</div>
-                        <div class="list-subtitle">Positive feedback from 89% of beta testers</div>
-                    </div>
-                </div>
+                <table class="state-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="state-badge completed">Completed</span></td>
+                            <td>24</td>
+                            <td>
+                                <div class="percentage-cell">
+                                    <span class="percentage-text">48%</span>
+                                    <div class="percentage-bar">
+                                        <div class="percentage-fill completed" style="width: 48%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge in-progress">In Progress</span></td>
+                            <td>18</td>
+                            <td>
+                                <div class="percentage-cell">
+                                    <span class="percentage-text">36%</span>
+                                    <div class="percentage-bar">
+                                        <div class="percentage-fill in-progress" style="width: 36%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge blocked">Blocked</span></td>
+                            <td>3</td>
+                            <td>
+                                <div class="percentage-cell">
+                                    <span class="percentage-text">6%</span>
+                                    <div class="percentage-bar">
+                                        <div class="percentage-fill blocked" style="width: 6%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge pending">Pending</span></td>
+                            <td>5</td>
+                            <td>
+                                <div class="percentage-cell">
+                                    <span class="percentage-text">10%</span>
+                                    <div class="percentage-bar">
+                                        <div class="percentage-fill pending" style="width: 10%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total</strong></td>
+                            <td><strong>50</strong></td>
+                            <td><strong>100%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
             <!-- Current Focus Areas -->
